@@ -29,6 +29,7 @@
 		CD249C7B1ECAE664003C9086 /* MemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C7A1ECAE664003C9086 /* MemoTableViewController.m */; };
 		CD249C7E1ECAEF9F003C9086 /* SaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C7D1ECAEF9F003C9086 /* SaveViewController.m */; };
 		CD249C811ECAF08F003C9086 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C801ECAF08F003C9086 /* DetailViewController.m */; };
+		CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2FF6D51ED1E8BA00D74505 /* exit.png */; };
 		CD40066E1EAF3C9700385E87 /* recordVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */; };
 		CD4006701EAF3F4B00385E87 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD40066F1EAF3F4B00385E87 /* AVKit.framework */; };
 		CD83A9931ECAC5B600FB5D9B /* combineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD83A9921ECAC5B600FB5D9B /* combineViewController.m */; };
@@ -94,6 +95,7 @@
 		CD249C7D1ECAEF9F003C9086 /* SaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveViewController.m; sourceTree = "<group>"; };
 		CD249C7F1ECAF08F003C9086 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		CD249C801ECAF08F003C9086 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		CD2FF6D51ED1E8BA00D74505 /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
 		CD40066C1EAF3C9700385E87 /* recordVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recordVideoViewController.h; sourceTree = "<group>"; };
 		CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recordVideoViewController.m; sourceTree = "<group>"; };
 		CD40066F1EAF3F4B00385E87 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -203,6 +205,7 @@
 				CD1093671E935DB8006CE9A2 /* LaunchScreen.storyboard */,
 				CD10936A1E935DB8006CE9A2 /* Info.plist */,
 				CD9FB2FC1ECAF27C00913AE3 /* GoogleService-Info-2.plist */,
+				CD2FF6D51ED1E8BA00D74505 /* exit.png */,
 				CD1093591E935DB8006CE9A2 /* Supporting Files */,
 			);
 			path = Pan;
@@ -371,6 +374,7 @@
 				CD00899A1EC199FF00583FA6 /* GoogleService-Info.plist in Resources */,
 				CD1093661E935DB8006CE9A2 /* Assets.xcassets in Resources */,
 				CD1093641E935DB8006CE9A2 /* Main.storyboard in Resources */,
+				CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

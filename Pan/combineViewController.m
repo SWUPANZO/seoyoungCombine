@@ -42,7 +42,6 @@ FIRInviteDelegate> {
     [[ref child:@"Students/2013111564/week"] removeObserverWithHandle:_refHandle];
 }
 
-
 - (void)configureDatabase {
     ref = [[FIRDatabase database] reference];
     // Listen for new messages in the Firebase database
@@ -59,18 +58,10 @@ FIRInviteDelegate> {
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)showView:(id)sender {
         [self.functionView setHidden:NO];
+    
 }
 
 - (IBAction)pushCamera:(id)sender {
@@ -180,7 +171,7 @@ FIRInviteDelegate> {
     FIRDataSnapshot *weekSnapshot = week[indexPath.row];
     NSString *title = weekSnapshot.key;
     NSLog(@"%@", title);
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", title];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@주차", title];
     return cell;
 }
 
