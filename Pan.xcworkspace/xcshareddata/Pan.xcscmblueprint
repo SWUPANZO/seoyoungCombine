@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "16BBB6E7AAF8C1B8549C88B56376AAD399CD9C46",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D9631D12C3F63BEFF41F3C72681BB9AAC80C7469" : 9223372036854775807,
+    "16BBB6E7AAF8C1B8549C88B56376AAD399CD9C46" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "10799A9F-18BD-4C0C-B565-4FFE9E9355C5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D9631D12C3F63BEFF41F3C72681BB9AAC80C7469" : "Memo\/",
+    "16BBB6E7AAF8C1B8549C88B56376AAD399CD9C46" : "SWUPAN2\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Pan",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Pan.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SWUPANZO\/SWUPAN.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "16BBB6E7AAF8C1B8549C88B56376AAD399CD9C46"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SWUPANZO\/Memo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D9631D12C3F63BEFF41F3C72681BB9AAC80C7469"
+    }
+  ]
+}
