@@ -110,7 +110,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XMs-FO-ZRQ">
-                                <rect key="frame" x="0.0" y="64" width="375" height="469"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="434"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -129,11 +129,11 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JnS-tk-tJn">
-                                <rect key="frame" x="16" y="541" width="352" height="82"/>
+                                <rect key="frame" x="4" y="525" width="366" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kag-kl-bOt">
-                                        <rect key="frame" x="84" y="20" width="84" height="60"/>
+                                        <rect key="frame" x="94" y="26" width="84" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.6450055804" blue="0.4958426339" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Video"/>
@@ -142,7 +142,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0L-F7-K2r">
-                                        <rect key="frame" x="168" y="20" width="84" height="60"/>
+                                        <rect key="frame" x="178" y="26" width="84" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.97263615812993387" green="1" blue="0.306804395743422" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Record"/>
@@ -151,7 +151,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYi-F4-Rde">
-                                        <rect key="frame" x="252" y="20" width="84" height="60"/>
+                                        <rect key="frame" x="262" y="26" width="84" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.41437257900946756" blue="0.28719591059209792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Memo"/>
@@ -161,7 +161,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnJ-zl-GJd">
-                                        <rect key="frame" x="0.0" y="20" width="84" height="60"/>
+                                        <rect key="frame" x="10" y="26" width="84" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="0.61487165180000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Camera"/>
@@ -170,9 +170,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYa-cj-dov">
-                                        <rect key="frame" x="335" y="2" width="17" height="17"/>
+                                        <rect key="frame" x="346" y="5" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="exit.png"/>
+                                        <connections>
+                                            <action selector="exitView:" destination="OaB-fq-NAJ" eventType="touchUpInside" id="GAw-mR-Rxx"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </view>

@@ -20,8 +20,9 @@ UINavigationControllerDelegate, UIActionSheetDelegate, AVAudioRecorderDelegate, 
 
 @property (strong, nonatomic) IBOutlet UIView *functionView;
 
-- (IBAction)showView:(id)sender;
 
+- (IBAction)showView:(id)sender;
+- (IBAction)exitView:(id)sender;
 - (IBAction)pushCamera:(id)sender;
 - (IBAction)pushVideo:(id)sender;
 - (IBAction)pushMemo:(id)sender;

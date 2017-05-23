@@ -58,11 +58,15 @@ FIRInviteDelegate> {
     // Dispose of any resources that can be recreated.
 }
 
-
 - (IBAction)showView:(id)sender {
-        [self.functionView setHidden:NO];
-    
+    [self.functionView setHidden:NO];
 }
+
+
+- (IBAction)exitView:(id)sender {
+    [self.functionView setHidden:YES];
+}
+
 
 - (IBAction)pushCamera:(id)sender {
     picker = [[UIImagePickerController alloc] init];
