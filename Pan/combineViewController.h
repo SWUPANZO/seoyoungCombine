@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+
 @import Firebase;
 
-@interface combineViewController : UIViewController<UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, UIActionSheetDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate>
+@interface combineViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     UIImagePickerController *picker;
     UIImage *image;
 }
+
+@property (strong, nonatomic) NSString *loginId;
+@property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *lecture;
+@property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *imageArr;
+@property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *weekCell;
 
 @property (strong, nonatomic) IBOutlet UIView *functionView;
 
@@ -38,5 +44,6 @@ UINavigationControllerDelegate, UIActionSheetDelegate, AVAudioRecorderDelegate, 
 @property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *week;
 @property (strong, nonatomic) FIRStorageReference *storageRef;
 @property (nonatomic, strong) FIRRemoteConfig *remoteConfig;
+
 
 @end

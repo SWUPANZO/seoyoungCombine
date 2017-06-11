@@ -13,6 +13,7 @@ target 'Pan' do
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Storage'
   pod 'Firebase/AdMob'
+  pod ‘FSCalendar’
 
   # Pods for Pan
 

@@ -11,6 +11,10 @@
 @interface audioRecordViewController (){
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
+    FIRDatabaseHandle _lectureRefHandle;
+    FIRDatabaseHandle _weekRefHandle;
+    NSUInteger _lectureLength;
+    NSUInteger _weekLength;
 }
 
 @end
@@ -20,13 +24,23 @@
 @synthesize recordPauseButton;
 @synthesize playButton;
 @synthesize stopButton;
+@synthesize ref;
+@synthesize storageRef;
+@synthesize lecture;
+@synthesize week;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    week = [[NSMutableArray alloc] init];
+    lecture = [[NSMutableArray alloc] init];
     
     // Disable Stop/Play button when application launches
     [stopButton setEnabled:NO];
     [playButton setEnabled:NO];
+    
+    [self configureDatabase];
+    [self configureStorage];
     
     // Set the audio file
     NSArray *pathComponents = [NSArray arrayWithObjects:
@@ -50,11 +64,32 @@
     recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
     recorder.delegate = self;
     recorder.meteringEnabled = YES;
-    [recorder prepareToRecord];}
+    [recorder prepareToRecord];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)configureDatabase {
+    ref = [[FIRDatabase database] reference];
+    
+    _lectureRefHandle = [[[[ref child:@"Students"] child:@"2013111564"] child:@"lecture"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        [lecture addObject:snapshot];
+        
+        _lectureLength = lecture.count;
+    }];
+    
+    _weekRefHandle = [[ref child:@"AcademicCalendar"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        [week addObject:snapshot];
+        
+        _weekLength = week.count;
+    }];
+}
+
+- (void)configureStorage {
+    self.storageRef = [[FIRStorage storage] reference];
 }
 
 /*
@@ -102,9 +137,97 @@
 - (IBAction)stopAudio:(id)sender {
     [recorder stop];
     
+    NSData *audioData = [NSData dataWithContentsOfURL:recorder.url];
+    NSLog(@"audio Data : %@", recorder.url);
+    NSString *audioPath = [NSString stringWithFormat:@"%@/audios/%lld.mp3", @"2013111564", (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
+    FIRStorageMetadata *metadata = [FIRStorageMetadata new];
+    metadata.contentType = @"audio/mpeg";
+    NSLog(@"storage ref");
+    [[storageRef child:audioPath] putData:audioData metadata:metadata
+                               completion:^(FIRStorageMetadata * _Nullable metadata, NSError * _Nullable error) {
+                                   if (error) {
+                                       NSLog(@"Error uploading: %@", error);
+                                       return;
+                                   }
+                                   NSDate *currentDate = [NSDate date];
+                                   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                   [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+                                   NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
+                                   [dateFormatter setTimeZone:krTimeZone];
+                                   NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
+                                   
+                                   NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
+                                   NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
+                                   
+                                   [imgDiction setObject:[storageRef child:metadata.path].description forKey:capturedDate];
+                                   
+                                   
+                                   
+                                   NSCalendar *calendar = [NSCalendar currentCalendar];
+                                   NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
+                                                                        fromDate:currentDate];
+                                   NSInteger weekday = [comp weekday];
+                                   
+                                   NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
+                                   NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
+                                   
+                                   for(int i = 0; i < _lectureLength; i++){
+                                       NSLog(@"week save");
+                                       FIRDataSnapshot *lectureSnapshot = lecture[i];
+                                       
+                                       FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
+                                       [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                           FIRDatabaseReference *tempSnapshot = snapshot.ref;
+                                           [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
+                                               if([snapshot2.value integerValue] == weekday){
+                                                   [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
+                                                       if([subTimeString integerValue] > [snapshot3.value integerValue]){
+                                                           [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
+                                                               if([subTimeString integerValue] < [snapshot4.value integerValue]){
+                                                                   [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
+                                                                       
+                                                                       FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                                                       NSString *beforeWeekDate;
+                                                                       for(int i = 0; i < _weekLength; i++){
+                                                                           FIRDataSnapshot *weekSnapshot = week[i];
+                                                                           NSString *weekDate = weekSnapshot.value;
+                                                                           
+                                                                           if(beforeWeekSnapshot != nil){
+                                                                               if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                                                   //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
+                                                                                   [[[[[[ref child:@"Week"] child: @"2013111564"] child: weekSnapshot.key] child: nameSnapshot.value] child: @"audio"] updateChildValues:imgDiction];
+                                                                                   
+                                                                                   NSLog(@"week save : %@", weekSnapshot.key);
+                                                                                   i = 100;
+                                                                               }
+                                                                           }
+                                                                           beforeWeekSnapshot = weekSnapshot;
+                                                                           beforeWeekDate = beforeWeekSnapshot.value;
+                                                                       }
+                                                                       
+                                                                   }];
+                                                               }
+                                                               
+                                                           }];
+                                                       }
+                                                   }];
+                                                   
+                                               }
+                                           }];
+                                           
+                                       }];
+                                       if((i == _lectureLength-1)&&(i != 100)){
+                                           
+                                           [[[[[ref child:@"Week"] child: @"2013111564"] child: @"etc"] child: @"audio"] updateChildValues:imgDiction];
+                                           
+                                       }
+                                   }
+                                   
+                               }];
+    
+    
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:NO error:nil];
-}
+    [audioSession setActive:NO error:nil];}
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
@@ -113,21 +236,5 @@
     [playButton setEnabled:YES];
 }
 
-//- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-//    UIAlertController * alert = [UIAlertController
-//                                 alertControllerWithTitle:@"Done"
-//                                 message:@"Finish playing the recording!"
-//                                 preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction* yesButton = [UIAlertAction
-//                               actionWithTitle:@"OK"
-//                               style:UIAlertActionStyleDefault
-//                               handler:^(UIAlertAction * action) {
-//                                   //Handle no, thanks button
-//                               }];
-//    
-//    [alert addAction:yesButton];
-//    
-//    [self presentViewController:alert animated:YES completion:nil];
-//}
+
 @end

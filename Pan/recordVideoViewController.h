@@ -11,7 +11,14 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+@import Firebase;
 @interface recordVideoViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRStorageReference *storageRef;
+@property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *lecture;
+@property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *week;
 
 -(IBAction)recordAndPlay:(id)sender;
 -(BOOL)startCameraControllerFromViewController:(UIViewController*)controller

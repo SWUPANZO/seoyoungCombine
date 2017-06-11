@@ -10,7 +10,6 @@
 		54D02AC467A04D84F7C2A736 /* libPods-PanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1896AE5319BE81767667F3E1 /* libPods-PanTests.a */; };
 		A5980AD1D188E7882130595D /* libPods-PanUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B69C077153083D3C324F64A /* libPods-PanUITests.a */; };
 		BC764B3CD8DF8B4F2317548B /* libPods-Pan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588A9713C4A9E47015CEBDD5 /* libPods-Pan.a */; };
-		CD00899A1EC199FF00583FA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD0089991EC199FF00583FA6 /* GoogleService-Info.plist */; };
 		CD0100431E9E3D3E00DA9996 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0100421E9E3D3E00DA9996 /* AVFoundation.framework */; };
 		CD0100491E9E477500DA9996 /* audioRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0100481E9E477500DA9996 /* audioRecordViewController.m */; };
 		CD0915891EC826B700CA07C4 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0915881EC826B700CA07C4 /* SignInViewController.m */; };
@@ -32,9 +31,14 @@
 		CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2FF6D51ED1E8BA00D74505 /* exit.png */; };
 		CD40066E1EAF3C9700385E87 /* recordVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */; };
 		CD4006701EAF3F4B00385E87 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD40066F1EAF3F4B00385E87 /* AVKit.framework */; };
+		CD471CCE1EED355100219C97 /* CalendarTimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CCD1EED355100219C97 /* CalendarTimeTableViewController.m */; };
+		CD471CD11EED382800219C97 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD01EED382800219C97 /* CollectionViewController.m */; };
+		CD471CD41EED3D7700219C97 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */; };
+		CD471CD71EED3D8F00219C97 /* AudioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */; };
 		CD83A9931ECAC5B600FB5D9B /* combineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD83A9921ECAC5B600FB5D9B /* combineViewController.m */; };
-		CD9FB2FD1ECAF27C00913AE3 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD9FB2FC1ECAF27C00913AE3 /* GoogleService-Info-2.plist */; };
 		CDB1C64F1ED1892000E1BEF0 /* weekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */; };
+		CDB24BFA1EE2844400A4F87A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB24BF91EE2844400A4F87A /* Constants.m */; };
+		CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +67,6 @@
 		30780842E2E4541C29F7F8FE /* Pods-PanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PanUITests/Pods-PanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		588A9713C4A9E47015CEBDD5 /* libPods-Pan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B69C077153083D3C324F64A /* libPods-PanUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PanUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD0089991EC199FF00583FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD0100421E9E3D3E00DA9996 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CD0100471E9E477500DA9996 /* audioRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioRecordViewController.h; sourceTree = "<group>"; };
 		CD0100481E9E477500DA9996 /* audioRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = audioRecordViewController.m; sourceTree = "<group>"; };
@@ -99,11 +102,21 @@
 		CD40066C1EAF3C9700385E87 /* recordVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recordVideoViewController.h; sourceTree = "<group>"; };
 		CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recordVideoViewController.m; sourceTree = "<group>"; };
 		CD40066F1EAF3F4B00385E87 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		CD471CCC1EED355100219C97 /* CalendarTimeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTimeTableViewController.h; sourceTree = "<group>"; };
+		CD471CCD1EED355100219C97 /* CalendarTimeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTimeTableViewController.m; sourceTree = "<group>"; };
+		CD471CCF1EED382800219C97 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		CD471CD01EED382800219C97 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		CD471CD21EED3D7700219C97 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		CD471CD51EED3D8F00219C97 /* AudioCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCollectionViewCell.h; sourceTree = "<group>"; };
+		CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCollectionViewCell.m; sourceTree = "<group>"; };
 		CD83A9911ECAC5B600FB5D9B /* combineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = combineViewController.h; sourceTree = "<group>"; };
 		CD83A9921ECAC5B600FB5D9B /* combineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = combineViewController.m; sourceTree = "<group>"; };
-		CD9FB2FC1ECAF27C00913AE3 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-2.plist"; path = "../../../Downloads/GoogleService-Info-2.plist"; sourceTree = "<group>"; };
 		CDB1C64D1ED1892000E1BEF0 /* weekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weekViewController.h; sourceTree = "<group>"; };
 		CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weekViewController.m; sourceTree = "<group>"; };
+		CDB24BF81EE2844400A4F87A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		CDB24BF91EE2844400A4F87A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBBF502ED63E55FC7237FF3B /* Pods-PanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PanTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PanTests/Pods-PanTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +170,6 @@
 		CD10934D1E935DB7006CE9A2 = {
 			isa = PBXGroup;
 			children = (
-				CD0089991EC199FF00583FA6 /* GoogleService-Info.plist */,
 				CD1093581E935DB8006CE9A2 /* Pan */,
 				CD1093721E935DB8006CE9A2 /* PanTests */,
 				CD10937D1E935DB8006CE9A2 /* PanUITests */,
@@ -180,19 +192,30 @@
 		CD1093581E935DB8006CE9A2 /* Pan */ = {
 			isa = PBXGroup;
 			children = (
+				CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */,
 				CD10935C1E935DB8006CE9A2 /* AppDelegate.h */,
 				CD10935D1E935DB8006CE9A2 /* AppDelegate.m */,
 				CD10935F1E935DB8006CE9A2 /* ViewController.h */,
 				CD1093601E935DB8006CE9A2 /* ViewController.m */,
+				CD1093621E935DB8006CE9A2 /* Main.storyboard */,
 				CD0915871EC826B700CA07C4 /* SignInViewController.h */,
 				CD0915881EC826B700CA07C4 /* SignInViewController.m */,
-				CD1093621E935DB8006CE9A2 /* Main.storyboard */,
+				CD471CCC1EED355100219C97 /* CalendarTimeTableViewController.h */,
+				CD471CCD1EED355100219C97 /* CalendarTimeTableViewController.m */,
+				CDB24BF81EE2844400A4F87A /* Constants.h */,
+				CDB24BF91EE2844400A4F87A /* Constants.m */,
 				CD83A9911ECAC5B600FB5D9B /* combineViewController.h */,
 				CD83A9921ECAC5B600FB5D9B /* combineViewController.m */,
-				CD0100471E9E477500DA9996 /* audioRecordViewController.h */,
-				CD0100481E9E477500DA9996 /* audioRecordViewController.m */,
+				CD471CCF1EED382800219C97 /* CollectionViewController.h */,
+				CD471CD01EED382800219C97 /* CollectionViewController.m */,
+				CD471CD21EED3D7700219C97 /* ImageCollectionViewCell.h */,
+				CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */,
+				CD471CD51EED3D8F00219C97 /* AudioCollectionViewCell.h */,
+				CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */,
 				CD40066C1EAF3C9700385E87 /* recordVideoViewController.h */,
 				CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */,
+				CD0100471E9E477500DA9996 /* audioRecordViewController.h */,
+				CD0100481E9E477500DA9996 /* audioRecordViewController.m */,
 				CDB1C64D1ED1892000E1BEF0 /* weekViewController.h */,
 				CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */,
 				CD249C791ECAE664003C9086 /* MemoTableViewController.h */,
@@ -204,7 +227,6 @@
 				CD1093651E935DB8006CE9A2 /* Assets.xcassets */,
 				CD1093671E935DB8006CE9A2 /* LaunchScreen.storyboard */,
 				CD10936A1E935DB8006CE9A2 /* Info.plist */,
-				CD9FB2FC1ECAF27C00913AE3 /* GoogleService-Info-2.plist */,
 				CD2FF6D51ED1E8BA00D74505 /* exit.png */,
 				CD1093591E935DB8006CE9A2 /* Supporting Files */,
 			);
@@ -329,7 +351,7 @@
 				TargetAttributes = {
 					CD1093551E935DB7006CE9A2 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = F2GXB4KGQT;
+						DevelopmentTeam = 2K97JK6ZSZ;
 						ProvisioningStyle = Automatic;
 					};
 					CD10936E1E935DB8006CE9A2 = {
@@ -369,10 +391,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD9FB2FD1ECAF27C00913AE3 /* GoogleService-Info-2.plist in Resources */,
 				CD1093691E935DB8006CE9A2 /* LaunchScreen.storyboard in Resources */,
-				CD00899A1EC199FF00583FA6 /* GoogleService-Info.plist in Resources */,
 				CD1093661E935DB8006CE9A2 /* Assets.xcassets in Resources */,
+				CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */,
 				CD1093641E935DB8006CE9A2 /* Main.storyboard in Resources */,
 				CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */,
 			);
@@ -543,10 +564,15 @@
 				CD0100491E9E477500DA9996 /* audioRecordViewController.m in Sources */,
 				CD10935B1E935DB8006CE9A2 /* main.m in Sources */,
 				CD249C7B1ECAE664003C9086 /* MemoTableViewController.m in Sources */,
+				CDB24BFA1EE2844400A4F87A /* Constants.m in Sources */,
+				CD471CD41EED3D7700219C97 /* ImageCollectionViewCell.m in Sources */,
 				CDB1C64F1ED1892000E1BEF0 /* weekViewController.m in Sources */,
+				CD471CD11EED382800219C97 /* CollectionViewController.m in Sources */,
 				CD249C811ECAF08F003C9086 /* DetailViewController.m in Sources */,
 				CD249C7E1ECAEF9F003C9086 /* SaveViewController.m in Sources */,
 				CD0915891EC826B700CA07C4 /* SignInViewController.m in Sources */,
+				CD471CD71EED3D8F00219C97 /* AudioCollectionViewCell.m in Sources */,
+				CD471CCE1EED355100219C97 /* CalendarTimeTableViewController.m in Sources */,
 				CD40066E1EAF3C9700385E87 /* recordVideoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,10 +721,11 @@
 			baseConfigurationReference = 1CF5A4FB8A338DD0DD775117 /* Pods-Pan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F2GXB4KGQT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2K97JK6ZSZ;
 				INFOPLIST_FILE = Pan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SWUPAN2.list;
+				PRODUCT_BUNDLE_IDENTIFIER = "-zero0528-naver.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -708,10 +735,11 @@
 			baseConfigurationReference = 1FD3DEABF26BB2E6BDF31F6C /* Pods-Pan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F2GXB4KGQT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2K97JK6ZSZ;
 				INFOPLIST_FILE = Pan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SWUPAN2.list;
+				PRODUCT_BUNDLE_IDENTIFIER = "-zero0528-naver.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
