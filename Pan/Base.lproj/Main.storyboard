@@ -234,6 +234,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="nat-cE-exB" id="a8l-nS-79N"/>
+                                    <outlet property="delegate" destination="nat-cE-exB" id="SK1-sK-ey4"/>
+                                </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ECp-TQ-mz3">
                                 <rect key="frame" x="16" y="234" width="343" height="128"/>
@@ -265,6 +269,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="nat-cE-exB" id="Wf7-Vr-hRX"/>
+                                    <outlet property="delegate" destination="nat-cE-exB" id="z2e-fV-ev0"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

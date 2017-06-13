@@ -67,9 +67,9 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if(collectionView == self.ImageCollectionView){
+    if(collectionView == ImageCollectionView){
         return images.count;
-    } else if (collectionView == self.AudioCollectionView){
+    } else if (collectionView == AudioCollectionView){
         return 1;
     }
     

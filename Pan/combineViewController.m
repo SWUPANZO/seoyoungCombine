@@ -110,7 +110,6 @@ FIRInviteDelegate> {
         }
         else{
             [weekCell addObject:snapshot];
-            NSLog(@"haha");
             NSLog(@"week table : %@", snapshot);
             
             [weekTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weekCell.count-1 inSection:0]] withRowAnimation: UITableViewRowAnimationAutomatic];
