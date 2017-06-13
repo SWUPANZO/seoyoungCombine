@@ -36,6 +36,8 @@
 		CD471CD41EED3D7700219C97 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */; };
 		CD471CD71EED3D8F00219C97 /* AudioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */; };
 		CD83A9931ECAC5B600FB5D9B /* combineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD83A9921ECAC5B600FB5D9B /* combineViewController.m */; };
+		CDA0EA421EEFA29000112A86 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA401EEFA29000112A86 /* AppIcon.png */; };
+		CDA0EA431EEFA29000112A86 /* Loading.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA411EEFA29000112A86 /* Loading.png */; };
 		CDB1C64F1ED1892000E1BEF0 /* weekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */; };
 		CDB24BFA1EE2844400A4F87A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB24BF91EE2844400A4F87A /* Constants.m */; };
 		CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */; };
@@ -112,6 +114,8 @@
 		CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCollectionViewCell.m; sourceTree = "<group>"; };
 		CD83A9911ECAC5B600FB5D9B /* combineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = combineViewController.h; sourceTree = "<group>"; };
 		CD83A9921ECAC5B600FB5D9B /* combineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = combineViewController.m; sourceTree = "<group>"; };
+		CDA0EA401EEFA29000112A86 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
+		CDA0EA411EEFA29000112A86 /* Loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Loading.png; sourceTree = "<group>"; };
 		CDB1C64D1ED1892000E1BEF0 /* weekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weekViewController.h; sourceTree = "<group>"; };
 		CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weekViewController.m; sourceTree = "<group>"; };
 		CDB24BF81EE2844400A4F87A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 		CD1093581E935DB8006CE9A2 /* Pan */ = {
 			isa = PBXGroup;
 			children = (
+				CDA0EA401EEFA29000112A86 /* AppIcon.png */,
 				CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */,
 				CD10935C1E935DB8006CE9A2 /* AppDelegate.h */,
 				CD10935D1E935DB8006CE9A2 /* AppDelegate.m */,
@@ -226,6 +231,7 @@
 				CD249C801ECAF08F003C9086 /* DetailViewController.m */,
 				CD1093651E935DB8006CE9A2 /* Assets.xcassets */,
 				CD1093671E935DB8006CE9A2 /* LaunchScreen.storyboard */,
+				CDA0EA411EEFA29000112A86 /* Loading.png */,
 				CD10936A1E935DB8006CE9A2 /* Info.plist */,
 				CD2FF6D51ED1E8BA00D74505 /* exit.png */,
 				CD1093591E935DB8006CE9A2 /* Supporting Files */,
@@ -392,7 +398,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD1093691E935DB8006CE9A2 /* LaunchScreen.storyboard in Resources */,
+				CDA0EA431EEFA29000112A86 /* Loading.png in Resources */,
 				CD1093661E935DB8006CE9A2 /* Assets.xcassets in Resources */,
+				CDA0EA421EEFA29000112A86 /* AppIcon.png in Resources */,
 				CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */,
 				CD1093641E935DB8006CE9A2 /* Main.storyboard in Resources */,
 				CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */,

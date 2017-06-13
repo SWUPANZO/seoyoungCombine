@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ImageCollectionViewCell : UICollectionViewCell
-
 @property (strong, nonatomic) IBOutlet UIImageView *imgBg;
+
 
 @end

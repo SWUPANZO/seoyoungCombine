@@ -51,6 +51,7 @@
     // Listen for new messages in the Firebase database
     _refHandle = [[[[[[ref child:@"Week"] child:@"2013111564"] child:@"week14"] child:@"팀플"] child: @"album"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
         [images addObject:snapshot];
+        NSLog(@"%@",images);
         [ImageCollectionView insertItemsAtIndexPaths: @[[NSIndexPath indexPathForRow:images.count-1 inSection:0]]];
         //[collectView insertItemsAtIndexPaths: @[[NSIndexPath indexPathForRow:images.count-1 inSection:0]] withRowAnimation: UITableViewRowAnimationAutomatic];
         _imglength = images.count;
@@ -63,7 +64,7 @@
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 3;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
