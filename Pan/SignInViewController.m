@@ -27,7 +27,10 @@
     [super viewDidLoad];
     students = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
+    //self.signInId.font = [UIFont fontWithName:@"HoonJunglebookR" size:self.signInId.font.pointSize];
     
+    //[UIFont fontWithName:@"HoonJunglebookR" size:15];
+   
     [self configureDatabase];
 }
 
@@ -55,18 +58,7 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"toLoginSuccess"])
-    {
-        CalendarTimeTableViewController *deptVC = [segue destinationViewController];
 
-        deptVC.loginId = signInId.text;
-    }
-
-}
 
 
 - (IBAction)loginButton:(UIButton *)sender {
@@ -98,6 +90,20 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];
     return YES;
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"toLoginSuccess"])
+    {
+        CalendarTimeTableViewController *deptVC = [segue destinationViewController];
+        
+        deptVC.loginId = signInId.text;
+        deptVC.title = signInId.text;
+    }
+    
 }
 
 @end

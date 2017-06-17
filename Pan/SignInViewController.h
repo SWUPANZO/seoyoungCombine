@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @import Firebase;
 
-@interface SignInViewController : UIViewController
+@interface SignInViewController : UIViewController<UITextFieldDelegate>
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *students;
@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *signInPasswd;
 
 - (IBAction)loginButton:(UIButton *)sender;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 @end

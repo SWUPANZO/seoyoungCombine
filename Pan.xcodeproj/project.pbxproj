@@ -15,7 +15,6 @@
 		CD0915891EC826B700CA07C4 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0915881EC826B700CA07C4 /* SignInViewController.m */; };
 		CD10935B1E935DB8006CE9A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD10935A1E935DB8006CE9A2 /* main.m */; };
 		CD10935E1E935DB8006CE9A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD10935D1E935DB8006CE9A2 /* AppDelegate.m */; };
-		CD1093611E935DB8006CE9A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1093601E935DB8006CE9A2 /* ViewController.m */; };
 		CD1093641E935DB8006CE9A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD1093621E935DB8006CE9A2 /* Main.storyboard */; };
 		CD1093661E935DB8006CE9A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD1093651E935DB8006CE9A2 /* Assets.xcassets */; };
 		CD1093691E935DB8006CE9A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD1093671E935DB8006CE9A2 /* LaunchScreen.storyboard */; };
@@ -25,22 +24,28 @@
 		CD1093931E9376F9006CE9A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1093921E9376F9006CE9A2 /* CoreGraphics.framework */; };
 		CD1093951E937700006CE9A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1093941E937700006CE9A2 /* UIKit.framework */; };
 		CD1093971E937708006CE9A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1093961E937708006CE9A2 /* Foundation.framework */; };
-		CD249C7B1ECAE664003C9086 /* MemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C7A1ECAE664003C9086 /* MemoTableViewController.m */; };
-		CD249C7E1ECAEF9F003C9086 /* SaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C7D1ECAEF9F003C9086 /* SaveViewController.m */; };
-		CD249C811ECAF08F003C9086 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD249C801ECAF08F003C9086 /* DetailViewController.m */; };
 		CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2FF6D51ED1E8BA00D74505 /* exit.png */; };
-		CD40066E1EAF3C9700385E87 /* recordVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */; };
 		CD4006701EAF3F4B00385E87 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD40066F1EAF3F4B00385E87 /* AVKit.framework */; };
 		CD471CCE1EED355100219C97 /* CalendarTimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CCD1EED355100219C97 /* CalendarTimeTableViewController.m */; };
 		CD471CD11EED382800219C97 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD01EED382800219C97 /* CollectionViewController.m */; };
 		CD471CD41EED3D7700219C97 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */; };
 		CD471CD71EED3D8F00219C97 /* AudioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */; };
+		CD6E94C41EEFDA1D00659D74 /* MemoSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6E94C31EEFDA1D00659D74 /* MemoSaveViewController.m */; };
 		CD83A9931ECAC5B600FB5D9B /* combineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD83A9921ECAC5B600FB5D9B /* combineViewController.m */; };
 		CDA0EA421EEFA29000112A86 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA401EEFA29000112A86 /* AppIcon.png */; };
 		CDA0EA431EEFA29000112A86 /* Loading.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA411EEFA29000112A86 /* Loading.png */; };
-		CDB1C64F1ED1892000E1BEF0 /* weekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */; };
+		CDA0EA531EEFC81A00112A86 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA4F1EEFC81A00112A86 /* camera.png */; };
+		CDA0EA541EEFC81A00112A86 /* memo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA501EEFC81A00112A86 /* memo.png */; };
+		CDA0EA551EEFC81A00112A86 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA511EEFC81A00112A86 /* record.png */; };
+		CDA0EA561EEFC81A00112A86 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA521EEFC81A00112A86 /* video.png */; };
+		CDA0EA581EEFCA7700112A86 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA571EEFCA7700112A86 /* settings.png */; };
+		CDA0EA5A1EEFCC6400112A86 /* lecture.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA0EA591EEFCC6400112A86 /* lecture.png */; };
 		CDB24BFA1EE2844400A4F87A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB24BF91EE2844400A4F87A /* Constants.m */; };
 		CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */; };
+		CDD415F91EF5126C00F95D81 /* Seoulnamsan_M.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDD415F81EF5126C00F95D81 /* Seoulnamsan_M.otf */; };
+		CDFBF95C1EF4E56200F042C5 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF95A1EF4E56200F042C5 /* stop.png */; };
+		CDFBF95D1EF4E56200F042C5 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF95B1EF4E56200F042C5 /* pause.png */; };
+		CDFBF95F1EF4E67A00F042C5 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFBF95E1EF4E67A00F042C5 /* start.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +83,6 @@
 		CD10935A1E935DB8006CE9A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CD10935C1E935DB8006CE9A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD10935D1E935DB8006CE9A2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CD10935F1E935DB8006CE9A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CD1093601E935DB8006CE9A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CD1093631E935DB8006CE9A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD1093651E935DB8006CE9A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD1093681E935DB8006CE9A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,15 +97,7 @@
 		CD1093921E9376F9006CE9A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD1093941E937700006CE9A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CD1093961E937708006CE9A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		CD249C791ECAE664003C9086 /* MemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoTableViewController.h; sourceTree = "<group>"; };
-		CD249C7A1ECAE664003C9086 /* MemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoTableViewController.m; sourceTree = "<group>"; };
-		CD249C7C1ECAEF9F003C9086 /* SaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveViewController.h; sourceTree = "<group>"; };
-		CD249C7D1ECAEF9F003C9086 /* SaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveViewController.m; sourceTree = "<group>"; };
-		CD249C7F1ECAF08F003C9086 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		CD249C801ECAF08F003C9086 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		CD2FF6D51ED1E8BA00D74505 /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
-		CD40066C1EAF3C9700385E87 /* recordVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recordVideoViewController.h; sourceTree = "<group>"; };
-		CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recordVideoViewController.m; sourceTree = "<group>"; };
 		CD40066F1EAF3F4B00385E87 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		CD471CCC1EED355100219C97 /* CalendarTimeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTimeTableViewController.h; sourceTree = "<group>"; };
 		CD471CCD1EED355100219C97 /* CalendarTimeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTimeTableViewController.m; sourceTree = "<group>"; };
@@ -112,15 +107,25 @@
 		CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		CD471CD51EED3D8F00219C97 /* AudioCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCollectionViewCell.h; sourceTree = "<group>"; };
 		CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCollectionViewCell.m; sourceTree = "<group>"; };
+		CD6E94C21EEFDA1D00659D74 /* MemoSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoSaveViewController.h; sourceTree = "<group>"; };
+		CD6E94C31EEFDA1D00659D74 /* MemoSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoSaveViewController.m; sourceTree = "<group>"; };
 		CD83A9911ECAC5B600FB5D9B /* combineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = combineViewController.h; sourceTree = "<group>"; };
 		CD83A9921ECAC5B600FB5D9B /* combineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = combineViewController.m; sourceTree = "<group>"; };
 		CDA0EA401EEFA29000112A86 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		CDA0EA411EEFA29000112A86 /* Loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Loading.png; sourceTree = "<group>"; };
-		CDB1C64D1ED1892000E1BEF0 /* weekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weekViewController.h; sourceTree = "<group>"; };
-		CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weekViewController.m; sourceTree = "<group>"; };
+		CDA0EA4F1EEFC81A00112A86 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		CDA0EA501EEFC81A00112A86 /* memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = memo.png; sourceTree = "<group>"; };
+		CDA0EA511EEFC81A00112A86 /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
+		CDA0EA521EEFC81A00112A86 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
+		CDA0EA571EEFCA7700112A86 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		CDA0EA591EEFCC6400112A86 /* lecture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lecture.png; sourceTree = "<group>"; };
 		CDB24BF81EE2844400A4F87A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CDB24BF91EE2844400A4F87A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CDD415F81EF5126C00F95D81 /* Seoulnamsan_M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Seoulnamsan_M.otf; sourceTree = "<group>"; };
+		CDFBF95A1EF4E56200F042C5 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = ../../stop.png; sourceTree = "<group>"; };
+		CDFBF95B1EF4E56200F042C5 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = ../../pause.png; sourceTree = "<group>"; };
+		CDFBF95E1EF4E67A00F042C5 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start.png; path = ../../start.png; sourceTree = "<group>"; };
 		EBBF502ED63E55FC7237FF3B /* Pods-PanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PanTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PanTests/Pods-PanTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,12 +201,10 @@
 		CD1093581E935DB8006CE9A2 /* Pan */ = {
 			isa = PBXGroup;
 			children = (
-				CDA0EA401EEFA29000112A86 /* AppIcon.png */,
 				CDCACADF1EED0002002BC7EA /* GoogleService-Info.plist */,
+				CDD415F81EF5126C00F95D81 /* Seoulnamsan_M.otf */,
 				CD10935C1E935DB8006CE9A2 /* AppDelegate.h */,
 				CD10935D1E935DB8006CE9A2 /* AppDelegate.m */,
-				CD10935F1E935DB8006CE9A2 /* ViewController.h */,
-				CD1093601E935DB8006CE9A2 /* ViewController.m */,
 				CD1093621E935DB8006CE9A2 /* Main.storyboard */,
 				CD0915871EC826B700CA07C4 /* SignInViewController.h */,
 				CD0915881EC826B700CA07C4 /* SignInViewController.m */,
@@ -211,24 +214,26 @@
 				CDB24BF91EE2844400A4F87A /* Constants.m */,
 				CD83A9911ECAC5B600FB5D9B /* combineViewController.h */,
 				CD83A9921ECAC5B600FB5D9B /* combineViewController.m */,
+				CD0100471E9E477500DA9996 /* audioRecordViewController.h */,
+				CD0100481E9E477500DA9996 /* audioRecordViewController.m */,
+				CD6E94C21EEFDA1D00659D74 /* MemoSaveViewController.h */,
+				CD6E94C31EEFDA1D00659D74 /* MemoSaveViewController.m */,
 				CD471CCF1EED382800219C97 /* CollectionViewController.h */,
 				CD471CD01EED382800219C97 /* CollectionViewController.m */,
 				CD471CD21EED3D7700219C97 /* ImageCollectionViewCell.h */,
 				CD471CD31EED3D7700219C97 /* ImageCollectionViewCell.m */,
 				CD471CD51EED3D8F00219C97 /* AudioCollectionViewCell.h */,
 				CD471CD61EED3D8F00219C97 /* AudioCollectionViewCell.m */,
-				CD40066C1EAF3C9700385E87 /* recordVideoViewController.h */,
-				CD40066D1EAF3C9700385E87 /* recordVideoViewController.m */,
-				CD0100471E9E477500DA9996 /* audioRecordViewController.h */,
-				CD0100481E9E477500DA9996 /* audioRecordViewController.m */,
-				CDB1C64D1ED1892000E1BEF0 /* weekViewController.h */,
-				CDB1C64E1ED1892000E1BEF0 /* weekViewController.m */,
-				CD249C791ECAE664003C9086 /* MemoTableViewController.h */,
-				CD249C7A1ECAE664003C9086 /* MemoTableViewController.m */,
-				CD249C7C1ECAEF9F003C9086 /* SaveViewController.h */,
-				CD249C7D1ECAEF9F003C9086 /* SaveViewController.m */,
-				CD249C7F1ECAF08F003C9086 /* DetailViewController.h */,
-				CD249C801ECAF08F003C9086 /* DetailViewController.m */,
+				CDA0EA401EEFA29000112A86 /* AppIcon.png */,
+				CDFBF95E1EF4E67A00F042C5 /* start.png */,
+				CDFBF95A1EF4E56200F042C5 /* stop.png */,
+				CDFBF95B1EF4E56200F042C5 /* pause.png */,
+				CDA0EA591EEFCC6400112A86 /* lecture.png */,
+				CDA0EA571EEFCA7700112A86 /* settings.png */,
+				CDA0EA4F1EEFC81A00112A86 /* camera.png */,
+				CDA0EA501EEFC81A00112A86 /* memo.png */,
+				CDA0EA511EEFC81A00112A86 /* record.png */,
+				CDA0EA521EEFC81A00112A86 /* video.png */,
 				CD1093651E935DB8006CE9A2 /* Assets.xcassets */,
 				CD1093671E935DB8006CE9A2 /* LaunchScreen.storyboard */,
 				CDA0EA411EEFA29000112A86 /* Loading.png */,
@@ -397,12 +402,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDA0EA581EEFCA7700112A86 /* settings.png in Resources */,
+				CDA0EA551EEFC81A00112A86 /* record.png in Resources */,
+				CDFBF95D1EF4E56200F042C5 /* pause.png in Resources */,
 				CD1093691E935DB8006CE9A2 /* LaunchScreen.storyboard in Resources */,
+				CDFBF95C1EF4E56200F042C5 /* stop.png in Resources */,
 				CDA0EA431EEFA29000112A86 /* Loading.png in Resources */,
+				CDA0EA541EEFC81A00112A86 /* memo.png in Resources */,
 				CD1093661E935DB8006CE9A2 /* Assets.xcassets in Resources */,
 				CDA0EA421EEFA29000112A86 /* AppIcon.png in Resources */,
 				CDCACAE01EED0002002BC7EA /* GoogleService-Info.plist in Resources */,
+				CDFBF95F1EF4E67A00F042C5 /* start.png in Resources */,
+				CDA0EA561EEFC81A00112A86 /* video.png in Resources */,
 				CD1093641E935DB8006CE9A2 /* Main.storyboard in Resources */,
+				CDA0EA5A1EEFCC6400112A86 /* lecture.png in Resources */,
+				CDA0EA531EEFC81A00112A86 /* camera.png in Resources */,
+				CDD415F91EF5126C00F95D81 /* Seoulnamsan_M.otf in Resources */,
 				CD2FF6D61ED1E8BA00D74505 /* exit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,22 +581,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD1093611E935DB8006CE9A2 /* ViewController.m in Sources */,
 				CD83A9931ECAC5B600FB5D9B /* combineViewController.m in Sources */,
 				CD10935E1E935DB8006CE9A2 /* AppDelegate.m in Sources */,
 				CD0100491E9E477500DA9996 /* audioRecordViewController.m in Sources */,
 				CD10935B1E935DB8006CE9A2 /* main.m in Sources */,
-				CD249C7B1ECAE664003C9086 /* MemoTableViewController.m in Sources */,
 				CDB24BFA1EE2844400A4F87A /* Constants.m in Sources */,
 				CD471CD41EED3D7700219C97 /* ImageCollectionViewCell.m in Sources */,
-				CDB1C64F1ED1892000E1BEF0 /* weekViewController.m in Sources */,
 				CD471CD11EED382800219C97 /* CollectionViewController.m in Sources */,
-				CD249C811ECAF08F003C9086 /* DetailViewController.m in Sources */,
-				CD249C7E1ECAEF9F003C9086 /* SaveViewController.m in Sources */,
+				CD6E94C41EEFDA1D00659D74 /* MemoSaveViewController.m in Sources */,
 				CD0915891EC826B700CA07C4 /* SignInViewController.m in Sources */,
 				CD471CD71EED3D8F00219C97 /* AudioCollectionViewCell.m in Sources */,
 				CD471CCE1EED355100219C97 /* CalendarTimeTableViewController.m in Sources */,
-				CD40066E1EAF3C9700385E87 /* recordVideoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

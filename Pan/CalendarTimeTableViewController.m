@@ -99,6 +99,7 @@
         
         deptVC.title = sendTitle;
         deptVC.loginId = loginId;
+        deptVC.lectureTitle = sendTitle;
     }
 }
 

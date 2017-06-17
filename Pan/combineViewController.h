@@ -20,11 +20,13 @@
 }
 
 @property (strong, nonatomic) NSString *loginId;
+@property (strong, nonatomic) NSString *lectureTitle;
 @property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *lecture;
 @property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *imageArr;
 @property (strong, nonatomic) NSMutableArray<FIRDataSnapshot *> *weekCell;
 
 @property (strong, nonatomic) IBOutlet UIView *functionView;
+@property (strong, nonatomic) IBOutlet UIButton *recordStop;
 
 
 - (IBAction)showView:(id)sender;
@@ -32,6 +34,7 @@
 - (IBAction)pushCamera:(id)sender;
 - (IBAction)pushVideo:(id)sender;
 - (IBAction)pushMemo:(id)sender;
+- (IBAction)pushRecord:(id)sender;
 
 //video
 -(BOOL)startCameraControllerFromViewController:(UIViewController*)controller
@@ -45,5 +48,6 @@
 @property (strong, nonatomic) FIRStorageReference *storageRef;
 @property (nonatomic, strong) FIRRemoteConfig *remoteConfig;
 
+- (IBAction)button:(id)sender;
 
 @end

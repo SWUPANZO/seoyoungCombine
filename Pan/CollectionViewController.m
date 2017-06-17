@@ -13,18 +13,27 @@
 
 @interface CollectionViewController (){
     NSUInteger _imglength;
-    FIRDatabaseHandle _refHandle;
+    FIRDatabaseHandle _ImgRefHandle;
+    FIRDatabaseHandle _MemoRefHandle;
+    FIRDatabaseHandle _AudioRefHandle;
 }
 
 @end
 
-@implementation CollectionViewController
+@implementation CollectionViewController{
+    NSArray *array;
+}
 @synthesize loginId;
+@synthesize lectureTitle;
+@synthesize weekSelected;
 @synthesize ImageCollectionView;
 @synthesize AudioCollectionView;
 @synthesize images;
+@synthesize audios;
 @synthesize ref;
 @synthesize storageRef;
+@synthesize mmemo,memoTable;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +41,24 @@
     
     images = [[NSMutableArray alloc] init];
     
+    //이미지, 오디오 불러오기
     [ImageCollectionView setDelegate:self];
     [ImageCollectionView setDataSource:self];
     [AudioCollectionView setDelegate:self];
     [AudioCollectionView setDataSource:self];
     
+    //메모 불러오기
+    mmemo = [[NSMutableArray alloc] init];
+    [memoTable registerClass:UITableViewCell.self forCellReuseIdentifier:@"MemoCell"];
+    
     [self configureDatabase];
     [self configureStorage];
 }
+/*
+- (void)dealloc {
+    [[ref child:@"memos"] removeObserverWithHandle:_refHandle];
+}
+ */
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -48,14 +67,29 @@
 
 - (void)configureDatabase {
     ref = [[FIRDatabase database] reference];
+    
     // Listen for new messages in the Firebase database
-    _refHandle = [[[[[[ref child:@"Week"] child:@"2013111564"] child:@"week14"] child:@"팀플"] child: @"album"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+    _ImgRefHandle = [[[[[[ref child:@"Week"] child:loginId] child:weekSelected] child:lectureTitle] child: @"album"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
         [images addObject:snapshot];
-        NSLog(@"%@",images);
         [ImageCollectionView insertItemsAtIndexPaths: @[[NSIndexPath indexPathForRow:images.count-1 inSection:0]]];
         //[collectView insertItemsAtIndexPaths: @[[NSIndexPath indexPathForRow:images.count-1 inSection:0]] withRowAnimation: UITableViewRowAnimationAutomatic];
         _imglength = images.count;
     }];
+    
+    _MemoRefHandle = [[[[[[ref child:@"Week"] child:loginId] child:weekSelected] child:lectureTitle] child: @"memo"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        [mmemo addObject:snapshot];
+            [memoTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:mmemo.count-1 inSection:0]] withRowAnimation: UITableViewRowAnimationAutomatic];
+    //    _imglength = images.count;
+    }];
+/*
+    _AudioRefHandle = [[[[[[ref child:@"Week"] child:loginId] child:weekSelected] child:lectureTitle] child: @"audio"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        [audios addObject:snapshot];
+        [AudioCollectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:audios.count-1 inSection:0]]];
+       //    _imglength = images.count;
+    }];
+*/
+                       
+                       
 }
 
 - (void)configureStorage {
@@ -104,6 +138,28 @@
     
     return nil;
 }
+
+- (NSInteger) numberOfSectionsInTableView: (UITableView *) tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return mmemo.count;
+}
+    
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // Dequeue cell
+    UITableViewCell *cell = [memoTable dequeueReusableCellWithIdentifier:@"MemoCell" forIndexPath:indexPath];
+    
+    // Unpack message from Firebase DataSnapshot
+    FIRDataSnapshot *timeSnapshot = mmemo[indexPath.row];
+    NSLog(@"time snapshot : %@", timeSnapshot.value);
+    cell.textLabel.text = [NSString stringWithFormat:@"%@" ,timeSnapshot.value];
+    
+    return cell;
+}
+
 
 /*
 #pragma mark - Navigation

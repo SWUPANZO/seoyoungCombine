@@ -8,6 +8,7 @@
 
 #import "combineViewController.h"
 #import "CollectionViewController.h"
+#import "MemoSaveViewController.h"
 
 @interface combineViewController ()<UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
 FIRInviteDelegate> {
@@ -20,7 +21,11 @@ FIRInviteDelegate> {
     int lectureBool;
 
     FIRDatabaseHandle _weekRefHandle;
+    
+    NSString *sendWeek;
 
+    AVAudioRecorder *recorder;
+    AVAudioPlayer *player;
 
 //    int _msglength;
 }
@@ -29,15 +34,15 @@ FIRInviteDelegate> {
 
 @implementation combineViewController
 
-//@synthesize imageView;
-//@synthesize newMedia;
 @synthesize remoteConfig;
 @synthesize loginId;
+@synthesize lectureTitle;
 @synthesize lecture;
 @synthesize imageArr;
 
 
 @synthesize functionView;
+@synthesize recordStop;
 @synthesize weekTable;
 @synthesize week;
 @synthesize weekCell;
@@ -62,6 +67,32 @@ FIRInviteDelegate> {
     [self configureRemoteConfig];
 
     [weekTable registerClass:UITableViewCell.self forCellReuseIdentifier:@"weekTableViewCell"];
+    
+    NSArray *pathComponents = [NSArray arrayWithObjects:
+                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                               @"MyAudioMemo.m4a",
+                               nil];
+    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
+    // Setup audio session
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    // Define the recorder setting
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    
+    // Initiate and prepare the recorder
+    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate = self;
+    recorder.meteringEnabled = YES;
+    [recorder prepareToRecord];
+    
+    
+    [self.childViewControllers[0] view].hidden = YES;
 
     // Do any additional setup after loading the view.
 }
@@ -105,23 +136,19 @@ FIRInviteDelegate> {
     //주차별 테이블
     NSLog(@"주차 출력");
     _refHandle = [[ref child:@"AcademicCalendar"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-        if([snapshot.key isEqualToString: @"week0"]){
+        if([snapshot.key isEqualToString: @"week00"]){
             NSLog(@"snapshot");
         }
         else{
             [weekCell addObject:snapshot];
-            NSLog(@"week table : %@", snapshot);
             
             [weekTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weekCell.count-1 inSection:0]] withRowAnimation: UITableViewRowAnimationAutomatic];
         }
-
-        NSLog(@"snapshot : %lu", (unsigned long)weekCell.count);
     }];
     
 }
 
 - (void)configureRemoteConfig {
-    NSLog(@"configureRemoteConfig");
     remoteConfig = [FIRRemoteConfig remoteConfig];
     
     FIRRemoteConfigSettings *remoteConfigSettings = [[FIRRemoteConfigSettings alloc] initWithDeveloperModeEnabled:YES];
@@ -129,7 +156,6 @@ FIRInviteDelegate> {
 }
 
 - (void)configureStorage {
-    NSLog(@"configureStorge");
     self.storageRef = [[FIRStorage storage] reference];
 }
 
@@ -157,15 +183,15 @@ FIRInviteDelegate> {
     // Unpack message from Firebase DataSnapshot
     FIRDataSnapshot *weekSnapshot = weekCell[indexPath.row];
     NSString *title = weekSnapshot.key;
-    NSLog(@"%@", title);
-    NSString *subString = [title substringFromIndex:4];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@주차", subString];
+  //  NSString *subString = [title substringFromIndex:4];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", title];
   //  [weekTable reloadData];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    FIRDataSnapshot *temp = weekCell[indexPath.row];
+    sendWeek = temp.key;
     [self performSegueWithIdentifier:@"toCollectionView" sender:self];
 }
 
@@ -189,6 +215,152 @@ FIRInviteDelegate> {
 
 - (IBAction)pushVideo:(id)sender {
     [self startCameraControllerFromViewController:self usingDelegate:self];
+}
+
+- (IBAction)pushMemo:(id)sender {
+    [self performSegueWithIdentifier:@"toMemoSave" sender:self];
+    
+}
+
+- (IBAction)pushRecord:(id)sender {
+    
+    UIImage *playImage = [UIImage imageNamed:@"start.png"];
+    UIImage *stopImage = [UIImage imageNamed:@"stop.png"];
+    
+
+    if (player.playing) {
+        [player stop];
+    }
+    
+    if (!recorder.recording) {
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        // Start recording
+        [recorder record];
+        [recordStop setImage:stopImage forState:UIControlStateNormal];
+        [recordStop setTitle:@"Stop" forState:UIControlStateNormal];
+        
+    } else {
+        
+        // Pause recording
+        [recordStop setImage:playImage forState:UIControlStateNormal];
+        [recordStop setTitle:@"Record" forState:UIControlStateNormal];
+        [recorder stop];
+        
+        NSData *audioData = [NSData dataWithContentsOfURL:recorder.url];
+        NSLog(@"audio Data : %@", recorder.url);
+        NSString *audioPath = [NSString stringWithFormat:@"%@/audios/%lld.mp3", @"2013111564", (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
+        FIRStorageMetadata *metadata = [FIRStorageMetadata new];
+        metadata.contentType = @"audio/mpeg";
+        NSLog(@"storage ref");
+        [[storageRef child:audioPath] putData:audioData metadata:metadata
+                                   completion:^(FIRStorageMetadata * _Nullable metadata, NSError * _Nullable error) {
+                                       if (error) {
+                                           NSLog(@"Error uploading: %@", error);
+                                           return;
+                                       }
+                                       NSDate *currentDate = [NSDate date];
+                                       NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                       [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+                                       NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
+                                       [dateFormatter setTimeZone:krTimeZone];
+                                       NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
+                                       
+                                       NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
+                                       NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
+                                       
+                                       [imgDiction setObject:[storageRef child:metadata.path].description forKey:capturedDate];
+                                       
+                                       
+                                       
+                                       NSCalendar *calendar = [NSCalendar currentCalendar];
+                                       NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
+                                                                            fromDate:currentDate];
+                                       NSInteger weekday = [comp weekday];
+                                       
+                                       NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
+                                       NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
+                                       
+                                       for(int i = 0; i < _lectureLength; i++){
+                                           NSLog(@"week save");
+                                           FIRDataSnapshot *lectureSnapshot = lecture[i];
+                                           
+                                           FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
+                                           [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                               FIRDatabaseReference *tempSnapshot = snapshot.ref;
+                                               [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
+                                                   if([snapshot2.value integerValue] == weekday){
+                                                       [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
+                                                           if([subTimeString integerValue] > [snapshot3.value integerValue]){
+                                                               [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
+                                                                   if([subTimeString integerValue] < [snapshot4.value integerValue]){
+                                                                       [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
+                                                                           
+                                                                           FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                                                           NSString *beforeWeekDate;
+                                                                           for(int i = 0; i < _weekLength; i++){
+                                                                               FIRDataSnapshot *weekSnapshot = week[i];
+                                                                               NSString *weekDate = weekSnapshot.value;
+                                                                               
+                                                                               if(beforeWeekSnapshot != nil){
+                                                                                   if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                                                       //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
+                                                                                       [[[[[[ref child:@"Week"] child: @"2013111564"] child: weekSnapshot.key] child: nameSnapshot.value] child: @"audio"] updateChildValues:imgDiction];
+                                                                                       
+                                                                                       NSLog(@"week save : %@", weekSnapshot.key);
+                                                                                       i = 100;
+                                                                                   }
+                                                                               }
+                                                                               beforeWeekSnapshot = weekSnapshot;
+                                                                               beforeWeekDate = beforeWeekSnapshot.value;
+                                                                           }
+                                                                           
+                                                                       }];
+                                                                   }
+                                                                   
+                                                               }];
+                                                           }
+                                                       }];
+                                                       
+                                                   }
+                                               }];
+                                               
+                                           }];
+                                           if((i == _lectureLength-1)&&(i != 100)){
+                                               
+                                               FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                               NSString *beforeWeekDate;
+                                               for(int j = 0; j < _weekLength; j++){
+                                                   FIRDataSnapshot *weekSnapshot = week[j];
+                                                   NSString *weekDate = weekSnapshot.value;
+                                                   
+                                                   if(beforeWeekSnapshot != nil){
+                                                       if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                           [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: @"etc"] child: @"audio"] updateChildValues:imgDiction];
+                                                           
+                                                           j = 100;
+                                                           NSLog(@"week save : %@", weekSnapshot.key);
+                                                       }
+                                                   }
+                                                   beforeWeekSnapshot = weekSnapshot;
+                                                   beforeWeekDate = beforeWeekSnapshot.value;
+                                               }
+                                               
+                                           }
+                                       }
+                                       
+                                   }];
+        
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:NO error:nil];
+    }
+
+}
+
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    [recordStop setTitle:@"Record" forState:UIControlStateNormal];
 }
 
 -(BOOL)startCameraControllerFromViewController:(UIViewController*)controller
@@ -215,184 +387,220 @@ FIRInviteDelegate> {
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     //Camera
- //   image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-   // [imageView setImage:image];
+    NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     
-    NSData *imgData = UIImageJPEGRepresentation(image, 0.8);
-    NSString *imagePath = [NSString stringWithFormat:@"%@/images/%lld.jpg", loginId, (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
-    FIRStorageMetadata *CameraMetadata = [FIRStorageMetadata new];
-    CameraMetadata.contentType = @"image/jpeg";
-    [[storageRef child:imagePath] putData:imgData metadata:CameraMetadata                               completion:^(FIRStorageMetadata * _Nullable CameraMetadata, NSError * _Nullable error) {
-                                   if (error) {
-                                       NSLog(@"Error uploading: %@", error);
-                                       return;
-                                   }
-                                   NSDate *currentDate = [NSDate date];
-                                   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                   [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
-                                   NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
-                                   [dateFormatter setTimeZone:krTimeZone];
-                                   NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
-                                   
-                                   NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
-                                   NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
-                                   
-                                   [imgDiction setObject:[storageRef child:CameraMetadata.path].description forKey:capturedDate];
-                                   
-                                   
-                                   
-                                   NSCalendar *calendar = [NSCalendar currentCalendar];
-                                   NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
-                                                                        fromDate:currentDate];
-                                   NSInteger weekday = [comp weekday];
-                                   
-                                   NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
-                                   NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
-                                   
-                                   for(int i = 0; i < _lectureLength; i++){
-                                       FIRDataSnapshot *lectureSnapshot = lecture[i];
-                                       
-                                       FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
-                                       [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                                           FIRDatabaseReference *tempSnapshot = snapshot.ref;
-                                           [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
-                                               if([snapshot2.value integerValue] == weekday){
-                                                   [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
-                                                       if([subTimeString integerValue] > [snapshot3.value integerValue]){
-                                                           [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
-                                                               if([subTimeString integerValue] < [snapshot4.value integerValue]){
-                                                                   [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
-                                                                       
-                                                                       FIRDataSnapshot *beforeWeekSnapshot = nil;
-                                                                       NSString *beforeWeekDate;
-                                                                       for(int i = 0; i < _weekLength; i++){
-                                                                           FIRDataSnapshot *weekSnapshot = week[i];
-                                                                           NSString *weekDate = weekSnapshot.value;
-                                                                           
-                                                                           if(beforeWeekSnapshot != nil){
-                                                                               if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
-                                                                                   //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
-                                                                                   [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: nameSnapshot.value] child: @"album"] updateChildValues:imgDiction];
-                                                                                   
-                                                                                   NSLog(@"week save : %@", weekSnapshot.key);
-                                                                                   i = 100;
-                                                                               }
-                                                                           }
-                                                                           beforeWeekSnapshot = weekSnapshot;
-                                                                           beforeWeekDate = beforeWeekSnapshot.value;
-                                                                       }
-                                                                       
-                                                                   }];
-                                                               }
-                                                               
-                                                           }];
-                                                       }
-                                                   }];
-                                                   
-                                               }
-                                           }];
-                                           
-                                       }];
-                                       if((i == _lectureLength-1)&&(i != 100)){
-                                           
-                                           [[[[[ref child:@"Week"] child: loginId] child: @"etc"] child: @"album"] updateChildValues:imgDiction];
-                                           
-                                       }
-                                   }
-                                   
-                               }];
+    if([mediaType isEqualToString:@"public.image"]){
+        image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        NSData *imgData = UIImageJPEGRepresentation(image, 0.8);
+        NSString *imagePath = [NSString stringWithFormat:@"%@/images/%lld.jpg", loginId, (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
+        FIRStorageMetadata *CameraMetadata = [FIRStorageMetadata new];
+        CameraMetadata.contentType = @"image/jpeg";
+        [[storageRef child:imagePath] putData:imgData metadata:CameraMetadata                               completion:^(FIRStorageMetadata * _Nullable CameraMetadata, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Error uploading: %@", error);
+                return;
+            }
+            NSDate *currentDate = [NSDate date];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+            NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
+            [dateFormatter setTimeZone:krTimeZone];
+            NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
+            
+            NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
+            NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
+            
+            [imgDiction setObject:[storageRef child:CameraMetadata.path].description forKey:capturedDate];
+            
+            
+            
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
+                                                 fromDate:currentDate];
+            NSInteger weekday = [comp weekday];
+            
+            NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
+            NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
+            
+            for(int i = 0; i < _lectureLength; i++){
+                FIRDataSnapshot *lectureSnapshot = lecture[i];
+                
+                FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
+                [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    FIRDatabaseReference *tempSnapshot = snapshot.ref;
+                    [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
+                        if([snapshot2.value integerValue] == weekday){
+                            [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
+                                if([subTimeString integerValue] > [snapshot3.value integerValue]){
+                                    [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
+                                        if([subTimeString integerValue] < [snapshot4.value integerValue]){
+                                            [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
+                                                
+                                                FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                                NSString *beforeWeekDate;
+                                                for(int i = 0; i < _weekLength; i++){
+                                                    FIRDataSnapshot *weekSnapshot = week[i];
+                                                    NSString *weekDate = weekSnapshot.value;
+                                                    
+                                                    if(beforeWeekSnapshot != nil){
+                                                        if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                            //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
+                                                            [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: nameSnapshot.value] child: @"album"] updateChildValues:imgDiction];
+                                                            
+                                                            NSLog(@"week save : %@", weekSnapshot.key);
+                                                            i = 100;
+                                                        }
+                                                    }
+                                                    beforeWeekSnapshot = weekSnapshot;
+                                                    beforeWeekDate = beforeWeekSnapshot.value;
+                                                }
+                                                
+                                            }];
+                                        }
+                                        
+                                    }];
+                                }
+                            }];
+                            
+                        }
+                    }];
+                    
+                }];
+                if((i == _lectureLength-1)&&(i != 100)){
+                    
+                    FIRDataSnapshot *beforeWeekSnapshot = nil;
+                    NSString *beforeWeekDate;
+                    for(int j = 0; j < _weekLength; j++){
+                        FIRDataSnapshot *weekSnapshot = week[j];
+                        NSString *weekDate = weekSnapshot.value;
+                        
+                        if(beforeWeekSnapshot != nil){
+                            if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: @"etc"] child: @"album"] updateChildValues:imgDiction];
+                                
+                                j = 100;
+                                NSLog(@"week save : %@", weekSnapshot.key);
+                            }
+                        }
+                        beforeWeekSnapshot = weekSnapshot;
+                        beforeWeekDate = beforeWeekSnapshot.value;
+                    }
+                    
+                }
+            }
+            
+        }];
+    }
+    
     
     //Video
-    NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
-    [self dismissViewControllerAnimated:NO completion:nil];
-    NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-    NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
-    NSString *vedioPath = [NSString stringWithFormat:@"%@/video/%lld.mp3", @"2013111564", (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
-    FIRStorageMetadata *VideoMetadata = [FIRStorageMetadata new];
-    VideoMetadata.contentType = @"video/mp4";
-    NSLog(@"storage ref");
-    [[storageRef child:vedioPath] putData:videoData metadata:VideoMetadata
-                               completion:^(FIRStorageMetadata * _Nullable VideoMetadata, NSError * _Nullable error) {
-                                   if (error) {
-                                       NSLog(@"Error uploading: %@", error);
-                                       return;
-                                   }
-                                   NSDate *currentDate = [NSDate date];
-                                   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                   [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
-                                   NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
-                                   [dateFormatter setTimeZone:krTimeZone];
-                                   NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
-                                   
-                                   NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
-                                   NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
-                                   
-                                   [imgDiction setObject:[storageRef child:VideoMetadata.path].description forKey:capturedDate];
-                                   
-                                   
-                                   
-                                   NSCalendar *calendar = [NSCalendar currentCalendar];
-                                   NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
-                                                                        fromDate:currentDate];
-                                   NSInteger weekday = [comp weekday];
-                                   
-                                   NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
-                                   NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
-                                   
-                                   for(int i = 0; i < _lectureLength; i++){
-                                       FIRDataSnapshot *lectureSnapshot = lecture[i];
-                                       
-                                       FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
-                                       [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                                           FIRDatabaseReference *tempSnapshot = snapshot.ref;
-                                           [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
-                                               if([snapshot2.value integerValue] == weekday){
-                                                   [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
-                                                       if([subTimeString integerValue] > [snapshot3.value integerValue]){
-                                                           [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
-                                                               if([subTimeString integerValue] < [snapshot4.value integerValue]){
-                                                                   [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
-                                                                       
-                                                                       FIRDataSnapshot *beforeWeekSnapshot = nil;
-                                                                       NSString *beforeWeekDate;
-                                                                       for(int i = 0; i < _weekLength; i++){
-                                                                           FIRDataSnapshot *weekSnapshot = week[i];
-                                                                           NSString *weekDate = weekSnapshot.value;
-                                                                           
-                                                                           if(beforeWeekSnapshot != nil){
-                                                                               if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
-                                                                                   //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
-                                                                                   [[[[[[ref child:@"Week"] child: @"2013111564"] child: weekSnapshot.key] child: nameSnapshot.value] child: @"video"] updateChildValues:imgDiction];
-                                                                                   
-                                                                                   NSLog(@"week save : %@", weekSnapshot.key);
-                                                                                   i = 100;
-                                                                               }
-                                                                           }
-                                                                           beforeWeekSnapshot = weekSnapshot;
-                                                                           beforeWeekDate = beforeWeekSnapshot.value;
-                                                                       }
-                                                                       
-                                                                   }];
-                                                               }
-                                                               
-                                                           }];
-                                                       }
-                                                   }];
-                                                   
-                                               }
-                                           }];
-                                           
-                                       }];
-                                       if((i == _lectureLength-1)&&(i != 100)){
-                                           
-                                           [[[[[ref child:@"Week"] child:@"2013111564"] child:@"etc"] child:@"audio"] updateChildValues:imgDiction];
-                                           
+    if([mediaType isEqualToString:@"public.movie"]){
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
+        NSString *vedioPath = [NSString stringWithFormat:@"%@/video/%lld.mp3", loginId, (long long)([NSDate date].timeIntervalSince1970 * 1000.0)];
+        FIRStorageMetadata *VideoMetadata = [FIRStorageMetadata new];
+        VideoMetadata.contentType = @"video/mp4";
+        NSLog(@"storage ref");
+        [[storageRef child:vedioPath] putData:videoData metadata:VideoMetadata
+                                   completion:^(FIRStorageMetadata * _Nullable VideoMetadata, NSError * _Nullable error) {
+                                       if (error) {
+                                           NSLog(@"Error uploading: %@", error);
+                                           return;
                                        }
-                                   }
-                                   
-                               }];
-
-    
+                                       NSDate *currentDate = [NSDate date];
+                                       NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                       [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+                                       NSTimeZone *krTimeZone =[NSTimeZone timeZoneWithName:@"Asia/Seoul"];
+                                       [dateFormatter setTimeZone:krTimeZone];
+                                       NSString *krDate = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]];
+                                       
+                                       NSMutableDictionary *imgDiction = [[NSMutableDictionary alloc] init];
+                                       NSString *capturedDate = [NSString stringWithFormat:@"%@", krDate];
+                                       
+                                       [imgDiction setObject:[storageRef child:VideoMetadata.path].description forKey:capturedDate];
+                                       
+                                       
+                                       
+                                       NSCalendar *calendar = [NSCalendar currentCalendar];
+                                       NSDateComponents *comp = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday
+                                                                            fromDate:currentDate];
+                                       NSInteger weekday = [comp weekday];
+                                       
+                                       NSString *subDateString = [krDate substringWithRange:NSMakeRange(0, 8)];
+                                       NSString *subTimeString = [krDate substringWithRange:NSMakeRange(8, 4)];
+                                       
+                                       for(int i = 0; i < _lectureLength; i++){
+                                           FIRDataSnapshot *lectureSnapshot = lecture[i];
+                                           
+                                           FIRDatabaseReference *snapshotRef = lectureSnapshot.ref;
+                                           [[snapshotRef child:@"time"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                               FIRDatabaseReference *tempSnapshot = snapshot.ref;
+                                               [[tempSnapshot child:@"week"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot2) {
+                                                   if([snapshot2.value integerValue] == weekday){
+                                                       [[tempSnapshot child:@"start"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot3){
+                                                           if([subTimeString integerValue] > [snapshot3.value integerValue]){
+                                                               [[tempSnapshot child:@"end"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot4){
+                                                                   if([subTimeString integerValue] < [snapshot4.value integerValue]){
+                                                                       [[tempSnapshot.parent child:@"name"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull nameSnapshot) {
+                                                                           
+                                                                           FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                                                           NSString *beforeWeekDate;
+                                                                           for(int i = 0; i < _weekLength; i++){
+                                                                               FIRDataSnapshot *weekSnapshot = week[i];
+                                                                               NSString *weekDate = weekSnapshot.value;
+                                                                               
+                                                                               if(beforeWeekSnapshot != nil){
+                                                                                   if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                                                       //                                                                                   [[[[[[[ref child:@"Week"] child: loginId] child: nameSnapshot.value] child: weekSnapshot.key] child: @"album"] childByAutoId] setValue:imgDiction];
+                                                                                       [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: nameSnapshot.value] child: @"video"] updateChildValues:imgDiction];
+                                                                                       
+                                                                                       NSLog(@"week save : %@", weekSnapshot.key);
+                                                                                       i = 100;
+                                                                                   }
+                                                                               }
+                                                                               beforeWeekSnapshot = weekSnapshot;
+                                                                               beforeWeekDate = beforeWeekSnapshot.value;
+                                                                           }
+                                                                           
+                                                                       }];
+                                                                   }
+                                                                   
+                                                               }];
+                                                           }
+                                                       }];
+                                                       
+                                                   }
+                                               }];
+                                               
+                                           }];
+                                           if((i == _lectureLength-1)&&(i != 100)){
+                                               
+                                               FIRDataSnapshot *beforeWeekSnapshot = nil;
+                                               NSString *beforeWeekDate;
+                                               for(int j = 0; j < _weekLength; j++){
+                                                   FIRDataSnapshot *weekSnapshot = week[j];
+                                                   NSString *weekDate = weekSnapshot.value;
+                                                   
+                                                   if(beforeWeekSnapshot != nil){
+                                                       if([subDateString integerValue] > [beforeWeekDate integerValue] && [subDateString integerValue] < [weekDate integerValue]){
+                                                           [[[[[[ref child:@"Week"] child: loginId] child: weekSnapshot.key] child: @"etc"] child: @"vedio"] updateChildValues:imgDiction];
+                                                           
+                                                           j = 100;
+                                                           NSLog(@"week save : %@", weekSnapshot.key);
+                                                       }
+                                                   }
+                                                   beforeWeekSnapshot = weekSnapshot;
+                                                   beforeWeekDate = beforeWeekSnapshot.value;
+                                               }
+                                               
+                                           }
+                                       }
+                                       
+                                   }];
+        
+    }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -430,13 +638,6 @@ FIRInviteDelegate> {
 }
 
 
-- (IBAction)pushMemo:(id)sender {
-}
-
-
-
-
-
 
  #pragma mark - Navigation
  
@@ -448,12 +649,24 @@ FIRInviteDelegate> {
      {
          CollectionViewController *deptVC = [segue destinationViewController];
          
-        // deptVC.title = ;
+         deptVC.loginId = loginId;
+         deptVC.lectureTitle = lectureTitle;
+         deptVC.weekSelected = sendWeek;
+     }
+     
+     if ([[segue identifier] isEqualToString:@"toMemoSave"])
+     {
+         MemoSaveViewController *deptVC = [segue destinationViewController];
+         
          deptVC.loginId = loginId;
      }
+
 
  }
  
 
 
+- (IBAction)button:(id)sender {
+    [self.childViewControllers[0] view].hidden = ![self.childViewControllers[0] view].hidden;
+}
 @end
